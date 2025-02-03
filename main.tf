@@ -1,6 +1,6 @@
 # Define AWS Provider
 provider "aws" {
-  region = "us-west-2"  # Change to your preferred region
+  region = "eu-north-1"  # Changed from "us-west-2"
 }
 
 # S3 Bucket for storing movie cover images

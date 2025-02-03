@@ -1,0 +1,1 @@
+create_dynamodb.sh create_s3.sh hardocoded-lists-getmovies.py images main.tf movies.csv setup_infra.sh
