@@ -1,0 +1,6 @@
+{
+    "s3_bucket_name": "my-movie-covers-bucket-1738829957",
+    "Table_name": "Movies",
+    "lambda_function_name": "GetMovies",
+    "api_gateway_url": "https://hpm74t9r4h.execute-api.us-east-1.amazonaws.com/prod/movies"
+}
