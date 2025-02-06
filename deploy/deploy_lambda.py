@@ -75,7 +75,7 @@ iam_client.attach_role_policy(
 print("Role and permissions set")
 
 # Step 4: Create the Lambda function using boto3
-role_arn = role_arn = f"arn:aws:iam::{account_id}:role/{role_name}"
+role_arn = f"arn:aws:iam::{account_id}:role/{role_name}"
 
 # Step 5: Set environment variables for Lambda (DynamoDB table, API Gateway URL, etc.)
 

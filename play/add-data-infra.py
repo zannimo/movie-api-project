@@ -3,17 +3,8 @@ import csv
 import os
 import uuid
 import sys
-
-# Get the absolute path of the parent directory
-script_dir = os.path.dirname(os.path.abspath(__file__))  # movie-api-project/play
-parent_dir = os.path.dirname(script_dir)  # movie-api-project
-deploy_dir = os.path.join(parent_dir, "deploy")  # movie-api-project/deploy
-
-# Add deploy directory to sys.path
-sys.path.append(deploy_dir)
-
-# Now you can import utils
-from utils import get_shared_value
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'deploy')))
+from utils import get_shared_value 
 
 # AWS Configurations
 BUCKET_NAME = get_shared_value("s3_bucket_name")

@@ -27,7 +27,7 @@ api_id = response['ApiId']
 print(f"API Gateway created: {api_id}")
 
 # Step 2: Create a Lambda integration (before the route)
-lambda_arn = f"arn:aws:lambda:{AWS_REGION}:{account_id}:function:GetMovies"  # Replace with actual ARN
+lambda_arn = f"arn:aws:lambda:{AWS_REGION}:{account_id}:function:GetMovies"  
 
 integration_response = apigateway.create_integration(
     ApiId=api_id,
@@ -39,14 +39,20 @@ integration_id = integration_response['IntegrationId']
 print(f"Integration created: {integration_id}")
 
 
-# Step 3: Create a route (GET /movies) and attach integration
-route_response = apigateway.create_route(
-    ApiId=api_id,
-    RouteKey="GET /movies",
-    Target=f"integrations/{integration_id}"
-)
-route_id = route_response['RouteId']
-print(f"Route created: GET /movies ({route_id})")
+# Step 3: Create routes and attach integration
+routes_config = [
+    {"route_key": "GET /getmovies"},
+    {"route_key": "GET /getmoviesbyyear/{id}"},
+    {"route_key": "GET /getmoviesummary/{id}"}
+]
+
+for route in routes_config:
+    route_response = apigateway.create_route(
+        ApiId=api_id,
+        RouteKey=route["route_key"],
+        Target=f"integrations/{integration_id}"
+    )
+    print(f"Route created: {route['route_key']}")
 
 
 # Step 4: Create a stage (AutoDeploy=True means no manual deployment - create.deployment() - is needed)
@@ -58,12 +64,26 @@ stage_response = apigateway.create_stage(
 )
 print(f"Stage {stage_name} created.")
 
-# Save the api_gateway_url to the JSON file
+# Step 5: Save API Gateways URLs to shared file
+# 5.1. Define the routes and their respective path templates
+routes_list = [
+    {"name": "getmovies", "path": "/getmovies"},
+    {"name": "getmoviesbyyear/{id}", "path": "/getmoviesbyyear/{id}"},
+    {"name": "getmoviesummary/{id}", "path": "/getmoviesummary/{id}"}
+]
 
-api_gateway_url = {"api_gateway_url":f"https://{api_id}.execute-api.{AWS_REGION}.amazonaws.com/{stage_name}/movies"}
-update_shared_value(api_gateway_url)
+# 5.2. Loop through routes and generate the URLs, then update shared values with unique keys
+for route in routes_list:
+    route_name = route.get("name")  # Use .get() to avoid KeyError
+    route_path = route.get("path")
 
-print(f"API Gateway deployed at: {api_gateway_url['api_gateway_url']}")
+    api_url_key = f"api_gateway_url_{route_name}"
+    api_url_value = f"https://{api_id}.execute-api.{AWS_REGION}.amazonaws.com/{stage_name}{route_path}"
+   
+   # Update shared values (ensure it accumulates instead of overwriting)
+    update_shared_value({api_url_key: api_url_value})
+
+    print(f"API Gateway deployed at: {api_url_value}")
 
 
 # Step 6: Grant API Gateway permission to invoke Lambda
@@ -72,7 +92,7 @@ lambda_client.add_permission(
     StatementId="AllowAPIGatewayInvoke",
     Action="lambda:InvokeFunction",
     Principal="apigateway.amazonaws.com",
-    SourceArn=f"arn:aws:execute-api:{AWS_REGION}:{account_id}:{api_id}/*/*/movies"
+    SourceArn=f"arn:aws:execute-api:{AWS_REGION}:{account_id}:{api_id}/*/*"
 )
 
 print("API Gateway setup complete!")
