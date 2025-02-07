@@ -1,4 +1,4 @@
-# Movie API Project
+# Movie API Project (Work in Progress) 🚧 
 
 This project was created to demonstrate my skills in building a scalable and serverless application with AWS services using Boto3. 
 The project showcases automation of infrastructure deployment and data handling, leveraging **AWS Lambda**, **API Gateway**, **S3**, and **DynamoDB** to build a simple yet powerful API that manages and serves movie data. 
@@ -26,7 +26,6 @@ This project demonstrates a serverless architecture using AWS services. It provi
 ## Project Structure
 The API infrastructure and its data is automatically set up using the following scripts: 
 
-
 ### `deploy_all.py`
 This Python script automates the deployment of the following AWS infrastructure:
 - **S3**: Used for storing static data.
@@ -37,7 +36,7 @@ This Python script automates the deployment of the following AWS infrastructure:
 Running this script will deploy the entire infrastructure needed for the project.
 
 ### `add-data-infra.py`
-This Python script loads the initial data into S3 and DynamoDB. It interacts with the previously deployed infrastructure to populate the database with movie information.
+This Python script loads the initial data into S3 and DynamoDB. It interacts with the previously deployed infrastructure to populate the database and storage with movie data.
 
 ### Infrastructure Flow:
 1. Run `deploy_all.py` to deploy all the AWS resources (S3, DynamoDB, Lambda, API Gateway).
