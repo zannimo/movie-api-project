@@ -1,6 +1,8 @@
 # Movie API Project
 
-This project is a RESTful API built using AWS Lambda, API Gateway, S3, and DynamoDB. The project is structured to automate the setup of all required infrastructure, load initial data, and allow easy testing of the API endpoints.
+This project was created to demonstrate my skills in building a scalable and serverless application with AWS services using Boto3. 
+The project showcases automation of infrastructure deployment and data handling, leveraging **AWS Lambda**, **API Gateway**, **S3**, and **DynamoDB** to build a simple yet powerful API that manages and serves movie data. 
+
 
 ## Table of Contents
 
@@ -20,9 +22,10 @@ This project demonstrates a serverless architecture using AWS services. It provi
 - Fetch movies filtered by year.
 - Retrieve detailed movie summaries (under development).
 
-The API infrastructure is automatically set up using the script `deploy_all.py`, and data is loaded using the script `add-data-infra.py`.
 
 ## Project Structure
+The API infrastructure and its data is automatically set up using the following scripts: 
+
 
 ### `deploy_all.py`
 This Python script automates the deployment of the following AWS infrastructure:
