@@ -42,6 +42,7 @@ This Python script loads the initial data into S3 and DynamoDB. It interacts wit
 1. Run `deploy_all.py` to deploy all the AWS resources (S3, DynamoDB, Lambda, API Gateway).
 2. Run `add-data-infra.py` to load sample movie data into S3 and DynamoDB.
 3. Send API requests to test the infrastructure and see the responses.
+4. When done, remember to destroy all infrastructure by running `destroy_all.py`.
 
 ## API Endpoints
 
